@@ -8,9 +8,9 @@ app.get("/jupiter-tokens", async (req, res) => {
   try {
     const response = await axios.get("https://token.jup.ag/all");
     res.json(response.data);
-  } catch (err) {
-    console.error("❌ Failed to fetch Jupiter tokens:", err.message);
-    res.status(500).json({ error: "Failed to fetch tokens" });
+  } catch (error) {
+    console.error("❌ Proxy fetch error:", error.message);
+    res.status(500).json({ error: "Failed to fetch Jupiter tokens" });
   }
 });
 
