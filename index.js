@@ -1,29 +1,17 @@
-const express = require('express');
-const axios = require('axios');
-const cors = require('cors');
-
+const express = require("express");
+const axios = require("axios");
 const app = express();
-app.use(cors());
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
-app.get('/jupiter-tokens', async (req, res) => {
+
+app.get("/jupiter-tokens", async (req, res) => {
   try {
-    const response = await axios.get('https://token.jup.ag/all');
+    const response = await axios.get("https://token.jup.ag/all");
     res.json(response.data);
-  } catch (error) {
-    console.error('❌ Jupiter fetch error:', error.message);
-    res.status(500).json({ error: 'Jupiter API failed' });
-  }
-});
-
-app.get('/birdeye-token/:address', async (req, res) => {
-  try {
-    const response = await axios.get(`https://public-api.birdeye.so/public/token/${req.params.address}`);
-    res.json(response.data);
-  } catch (error) {
-    console.error('❌ Birdeye fetch error:', error.message);
-    res.status(500).json({ error: 'Birdeye API failed' });
+  } catch (err) {
+    console.error("❌ Failed to fetch Jupiter tokens:", err.message);
+    res.status(500).json({ error: "Failed to fetch tokens" });
   }
 });
 
